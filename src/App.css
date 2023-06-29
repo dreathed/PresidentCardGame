@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  --card-width: 12vh;
+  --card-height: calc(var(--card-width)*1.5);
+  height: 100vh;
 }
 
 .App-logo {
@@ -35,4 +38,114 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+html, body, #App, #root, #GameScreen {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  overflow: hidden;
+}
+
+#TableView {
+  position: relative;
+}
+
+#TableView, #dropArea {
+  background-color: #eee;
+  height: 60vh;
+}
+
+#dragArea, #dropArea{
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 60vh;
+  opacity: 0;
+}
+
+
+#cardFan {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  height: 40vh;
+}
+
+.card {
+  border: 2px solid black;
+  border-radius: 10px;
+  font-size: 5vh;
+  width: var(--card-width);
+  height: var(--card-height);
+  position:absolute;
+  background-color: white;
+}
+
+#cardFan .card {
+  transform-origin: 50% 160vh;
+}
+
+#TableView .card {
+  top: 40%;
+  left: 45%;
+  transform-origin: bottom;
+}
+
+#TableView .card:first-child:nth-last-child(1) {
+  transform: rotate(2deg) translate(2vh, 0vh);
+}
+
+#TableView .card:first-child:nth-last-child(2){
+  transform: rotate(-4deg) translate(-5vh, 1vh);
+}
+
+#TableView .card:first-child:nth-last-child(2) ~ .card{
+  transform: rotate(6deg) translate(3vh, 0vh);
+}
+
+#TableView .card:first-child:nth-last-child(3){
+  transform: rotate(-10deg) translate(-9vh, 1vh);
+}
+
+#TableView .card:first-child:nth-last-child(3) ~ .card:nth-last-of-type(1) {
+  transform: rotate(-4deg) translate(-2vh, 0vh);
+}
+
+#TableView .card:first-child:nth-last-child(3) ~ .card:nth-last-of-type(2) {
+  transform: rotate(6deg) translate(4vh, 0vh);
+}
+
+#TableView .card:first-child:nth-last-child(4){
+  transform: rotate(-15deg) translate(-12vh, 1vh);
+}
+
+#TableView .card:first-child:nth-last-child(4) ~ .card:nth-last-of-type(3) {
+  transform: rotate(-4deg) translate(-5vh, 2vh);
+}
+
+#TableView .card:first-child:nth-last-child(4) ~ .card:nth-last-of-type(2) {
+  transform: rotate(6deg) translate(2vh, 0vh);
+}
+
+#TableView .card:first-child:nth-last-child(4) ~ .card:nth-last-of-type(1) {
+  transform: rotate(12deg) translate(10vh, -2vh);
+}
+
+
+
+svg {
+  height: 30%;
+  width: 90%
+}
+
+
+.selected {
+  position:absolute;
+  transform: scale(2.0);
 }
