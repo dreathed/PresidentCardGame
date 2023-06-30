@@ -19,12 +19,19 @@ class App extends React.Component {
 
     this.screenChange = this.screenChange.bind(this)
     this.setPlayerName = this.setPlayerName.bind(this)
+    this.createTable = this.createTable.bind(this);
   }
 
   setPlayerName(name){
     this.setState({"playerName": String(name)})
     console.log("Send to socket")
     this.ws.send(JSON.stringify({command: "changeName", data: name}))
+  }
+
+
+  createTable(tablename,number_of_players){
+    console.log("try to create table...")
+    this.ws.send(JSON.stringify({command: "createTable", data: {numberOfPlayers: Number(number_of_players), tableName: tablename}}))
   }
 
 
@@ -51,7 +58,7 @@ class App extends React.Component {
         screen_view = <OpeningScreen screenChange={this.screenChange} setPlayerName={this.setPlayerName}></OpeningScreen>
         break;
       case(1):
-        screen_view = <CreateTableScreen screenChange={this.screenChange}></CreateTableScreen>
+        screen_view = <CreateTableScreen screenChange={this.screenChange} createTable={this.createTable}></CreateTableScreen>
         break;
       case(2):
         screen_view = <JoinTableScreen screenChange={this.screenChange}></JoinTableScreen>

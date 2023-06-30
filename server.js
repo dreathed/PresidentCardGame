@@ -487,6 +487,7 @@ app.ws("/api", function(ws, req){
 
         switch(msgObj.command){
             case("createTable"):
+            console.log("create Table, ", msgObj)
                 // make sure object is in good shape:
                 if(!msgObj.data.hasOwnProperty("tableName")){
                     return;
@@ -513,6 +514,7 @@ app.ws("/api", function(ws, req){
                 ws.table.targetNumberOfPlayers = 4;
                 ws.table.turn = 0;
                 console.log(ws.table)
+                ws.send(JSON.stringify({state: {data: "Created Table."}}))
                 break;
 
 

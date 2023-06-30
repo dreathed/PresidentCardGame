@@ -27,7 +27,7 @@ class OpeningScreen extends React.Component {
         this.props.setPlayerName(this.testForPlayerName())
   
         //for tests only:
-        this.props.screenChange(3)
+        this.props.screenChange(1)
   
         //this is the real line:
         //this.props.screenChange(1)

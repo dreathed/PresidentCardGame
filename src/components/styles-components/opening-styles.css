@@ -23,58 +23,96 @@
     }
 }
 
-.PlayerNameEnter {
+#openingScreen .PlayerNameEnter, #CreateTableScreen .MinPlayersDiv {
     margin-bottom: 5%;
 }
 
 
-h1 span {
+#openingScreen h1 span, #CreateTableScreen h1 span{
     display: inline-block;
 }
 
-h1 span:nth-child(1) {
+#openingScreen h1 span:nth-child(1), #CreateTableScreen h1 span:nth-child(1){
     transform: rotateZ(-15deg);
     color: darkred;
     animation: 1s ease-in-out 0s 1 "get-bigger", 0.5s ease-in-out 1s infinite alternate "funny-1";
 }
 
-h1 span:nth-child(2) {
+#openingScreen h1 span:nth-child(2), #CreateTableScreen h1 span:nth-child(2){
     transform: rotateZ(-15deg);
     color: green;
     animation: 3s ease-in-out 0s 1 "get-bigger", 0.9s ease-in-out 3s infinite alternate "funny-1";
 }
 
-h1 span:nth-child(3) {
+#openingScreen h1 span:nth-child(3), #CreateTableScreen h1 span:nth-child(3) {
     transform: rotateZ(-15deg);
     color: blueviolet;
     animation: 1.8s ease-in-out 0s 1 "get-bigger-2", 0.8s ease-in-out 1.8s infinite alternate "funny-2";
 }
 
-h1 span:nth-child(4) {
+#openingScreen h1 span:nth-child(4), #CreateTableScreen h1 span:nth-child(4) {
     transform: rotateZ(-10deg);
     color: darkblue;
     animation: 1.3s ease-in-out 0s 1 "get-bigger-2", 0.4s ease-in-out 1.3s infinite alternate "funny-2";
 }
 
-h1 span:nth-child(5) {
+#openingScreen h1 span:nth-child(5), #CreateTableScreen h1 span:nth-child(5) {
     transform: rotateZ(-10deg);
     color: darkgoldenrod;
     animation: 2.8s ease-in-out 0s 1 "get-bigger", 0.9s ease-in-out 2.8s infinite alternate "big-wiggle";
 }
 
-h1 span:nth-child(6) {
+#openingScreen h1 span:nth-child(6), #CreateTableScreen h1 span:nth-child(6) {
     transform: rotateZ(-10deg);
     color: greenyellow;
     animation: 2s ease-in-out 0s 1 "get-bigger-2", 0.4s ease-in-out 1.8s infinite alternate "big-wiggle-2";
 }
 
-h1 span:nth-child(7) {
+#openingScreen h1 span:nth-child(7), #CreateTableScreen h1 span:nth-child(7) {
     transform: rotateZ(15deg);
     color: royalblue;
-    animation: 2.2s ease-in-out 0s 1 "get-bigger-3", 0.7s ease-in-out 2.2s infinite alternate "twist";
+    animation: 0.5s ease-in-out 0s 1 "get-bigger", 0.8s ease-in-out 0.5s infinite alternate "funny-1";
 }
 
-h1 span:nth-child(10) {
+#CreateTableScreen h1 span:nth-child(8) {
+    transform: rotateZ(15deg);
+    color: rgb(92, 224, 52);
+    animation: 0.5s ease-in-out 0s 1 "get-bigger", 0.9s ease-in-out 0.5s infinite alternate "funny-1";
+}
+
+#CreateTableScreen h1 span:nth-child(9) {
+    transform: rotateZ(15deg);
+    color: rgb(230, 0, 50);
+    animation: 0.8s ease-in-out 0s 1 "get-bigger-3", 0.7s ease-in-out 0.8s infinite alternate "twist";
+}
+
+#CreateTableScreen h1 span:nth-child(10) {
+    transform: rotateZ(15deg);
+    color: rgb(0, 122, 92);
+    animation: 0.5s ease-in-out 0s 1 "get-bigger", 0.7s ease-in-out 0.5s infinite alternate "big-wiggle";
+}
+
+#CreateTableScreen h1 span:nth-child(11) {
+    transform: rotateZ(15deg);
+    color: rgb(252, 255, 57);
+    animation: 0.8s ease-in-out 0s 1 "get-bigger-2", 0.9s ease-in-out 0.8s infinite alternate "big-wiggle-2";
+}
+
+#CreateTableScreen h1 span:nth-child(12) {
+    transform: rotateZ(15deg);
+    color: rgb(0, 110, 255);
+    animation: 0.6s ease-in-out 0s 1 "get-bigger-2", 0.6s ease-in-out 0.6s infinite alternate "funny-2";
+}
+
+#CreateTableScreen h1 span:nth-child(13) {
+    transform: rotateZ(15deg);
+    color: rgb(37, 197, 45);
+    animation: 0.5s ease-in-out 0s 1 "get-bigger-3", 0.9s ease-in-out 0.5s infinite alternate "twist";
+}
+
+
+
+#openingScreen h1 span:nth-child(10) {
     transform: rotateZ(15deg);
     background: linear-gradient(-0.1turn, rgb(94, 3, 3), 60%, rgb(185, 11, 11));
     background-clip: text;
@@ -82,7 +120,7 @@ h1 span:nth-child(10) {
     animation: 2.8s ease-in-out 0s 1 "get-bigger", 0.9s ease-in-out 2.8s infinite alternate "big-wiggle";
 }
 
-h1 span:nth-child(11) {
+#openingScreen h1 span:nth-child(11) {
     transform: rotateZ(15deg);
     background: linear-gradient(-0.1turn, rgb(10, 30, 46), 60%, rgb(80, 102, 122));
     background-clip: text;
@@ -90,7 +128,7 @@ h1 span:nth-child(11) {
     animation: 3s ease-in-out 0s 1 "get-bigger", 0.9s ease-in-out 3s infinite alternate "funny-1";
 }
 
-h1 span:nth-child(12) {
+#openingScreen h1 span:nth-child(12) {
     transform: rotateZ(15deg);
     background: linear-gradient(-0.2turn, darkblue, 30%, white);
     background-clip: text;
@@ -98,7 +136,7 @@ h1 span:nth-child(12) {
     animation: 1s ease-in-out 0s 1 "get-bigger", 0.5s ease-in-out 1s infinite alternate "funny-1";
 }
 
-h1 span:nth-child(14) {
+#openingScreen h1 span:nth-child(14) {
     transform: rotateZ(15deg);
     text-shadow: rgba(215, 14, 255, 0.795) 0 0 12px;
     background: linear-gradient(-0.15turn, rgb(146, 12, 135), 100%, rgba(52, 228, 140, 0.575));
@@ -107,7 +145,7 @@ h1 span:nth-child(14) {
     animation: 1.3s ease-in-out 0s 1 "get-bigger", 0.4s ease-in-out 1.3s infinite alternate "funny-1";
 }
 
-h1 span:nth-child(15) {
+#openingScreen h1 span:nth-child(15) {
     transform: rotateZ(15deg);
     text-shadow: rgb(0, 255, 0) 0 0 8px;
     background: linear-gradient(-0.15turn, rgb(15, 88, 0), 50%, rgba(110, 255, 183, 0.205));
@@ -116,7 +154,7 @@ h1 span:nth-child(15) {
     animation: 1.9s ease-in-out 0s 1 "get-bigger-2", 0.8s ease-in-out 1.9s infinite alternate "twist";
 }
 
-h1 span:nth-child(16) {
+#openingScreen h1 span:nth-child(16) {
     transform: rotateZ(15deg);
     text-shadow: rgb(16, 103, 233) 0 0 10px;
     background: linear-gradient(-0.15turn, rgb(11, 153, 209), 75%, rgba(45, 163, 231, 0.205));
@@ -125,7 +163,7 @@ h1 span:nth-child(16) {
     animation: 1.2s ease-in-out 0s 1 "get-bigger-2", 0.7s ease-in-out 1.2s infinite alternate "big-wiggle";
 }
 
-h1 span:nth-child(17) {
+#openingScreen h1 span:nth-child(17) {
     transform: rotateZ(15deg);
     text-shadow: rgba(245, 255, 99, 0.959) 0 0 15px;
     background: linear-gradient(-0.15turn, rgb(151, 161, 12), 100%, rgba(255, 72, 0, 0.733));
@@ -135,7 +173,7 @@ h1 span:nth-child(17) {
 }
 
 
-h1 span:nth-child(18) {
+#openingScreen h1 span:nth-child(18) {
     transform: rotateZ(15deg);
     text-shadow: rgb(146, 30, 98) 0 0 15px;
     background: linear-gradient(-0.15turn, rgb(218, 4, 111), 50%, rgba(138, 85, 64, 0.733));
@@ -144,7 +182,7 @@ h1 span:nth-child(18) {
     animation: 0.7s ease-in-out 0s 1 "get-bigger-2", 0.9s ease-in-out 0.7s infinite alternate "big-wiggle-2";
 }
 
-h1 span:nth-child(19) {
+#openingScreen h1 span:nth-child(19) {
     transform: rotateZ(15deg);
     text-shadow: rgba(255, 7, 7, 0.774) 0 0 15px;
     background: linear-gradient(-0.15turn, rgb(255, 32, 32), 50%, rgba(138, 17, 17, 0.479));
@@ -153,7 +191,7 @@ h1 span:nth-child(19) {
     animation: 0.7s ease 0s 1 "get-bigger-3", 0.4s ease-in-out 0.7s infinite alternate "twist";
 }
 
-h1 span:nth-child(20) {
+#openingScreen h1 span:nth-child(20) {
     transform: rotateZ(15deg);
     text-shadow: rgba(100, 5, 252, 0.856) 0 0 15px;
     background: linear-gradient(-0.15turn, rgb(32, 91, 255), 50%, rgba(82, 108, 255, 0.822));
@@ -162,7 +200,7 @@ h1 span:nth-child(20) {
     animation: 1.7s ease 0s 1 "get-bigger-3", 0.4s ease-in-out 1.7s infinite alternate "big-wiggle-2";
 }
 
-h1 span:nth-child(21) {
+#openingScreen h1 span:nth-child(21) {
     transform: rotateZ(15deg);
     
     text-shadow: rgba(26, 252, 5, 0.815) 0 0 10px;
@@ -174,7 +212,7 @@ h1 span:nth-child(21) {
 }
 
 
-h1 span:nth-child(22) {
+#openingScreen h1 span:nth-child(22) {
     transform: rotateZ(15deg);
     
     text-shadow: rgba(212, 70, 255, 0.9) 0 0 20px;
@@ -275,7 +313,6 @@ h1 span:nth-child(22) {
         transform: rotateZ(30deg) scale(1.2);
     }
 }
-
 
 
 input {
