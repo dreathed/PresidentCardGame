@@ -154,13 +154,13 @@ function getPrivateState(table){
     }
 }
 
-function broadcastNewState(table){
+function broadcastNewState(table, msg){
     let sockets = getPlayersOnTable(table)
 
     // do not send the ids to the clients. This does not seem to be a good idea...
     let privateState = getPrivateState(table)
     for(let socket of sockets){
-        socket.send(JSON.stringify({state:{cards: socket.cards, table: privateState}}))
+        socket.send(JSON.stringify({state:{msg: msg, cards: socket.cards, table: privateState}}))
     }
 }
 
@@ -487,7 +487,6 @@ app.ws("/api", function(ws, req){
 
         switch(msgObj.command){
             case("createTable"):
-            console.log("create Table, ", msgObj)
                 // make sure object is in good shape:
                 if(!msgObj.data.hasOwnProperty("tableName")){
                     return;
@@ -511,14 +510,15 @@ app.ws("/api", function(ws, req){
                 }
 
                 ws.table = makeTable(String(msgObj.data.tableName), ws)
-                ws.table.targetNumberOfPlayers = 4;
+                ws.table.targetNumberOfPlayers = msgObj.data.numberOfPlayers;
                 ws.table.turn = 0;
                 console.log(ws.table)
-                ws.send(JSON.stringify({state: {data: "Created Table."}}))
+                ws.send(JSON.stringify({state: {msg: "Created Table", data: ws.table}}))
                 break;
 
 
             case("joinTable"):
+            console.log(msgObj)
                 // make sure object is in good shape / and is not malicious:
                 if(!msgObj.data.hasOwnProperty("tableName")){
                     return;
@@ -542,13 +542,16 @@ app.ws("/api", function(ws, req){
                 }
 
                 JoinTable(msgObj.data.tableName, ws)
+                
 
                 // if with the newly joined player the target number of players is reached, start the round:
                 if(PlayerNumberReached(ws.table)){
                     ws.table.phase = "round"
                     dealCards(ws.table)
-                    broadcastNewState(ws.table);
+                    broadcastNewState(ws.table, "game started");
+                    break;
                 }
+                broadcastNewState(ws.table, "Player Joined");
                 console.log(ws.table)
                 break;
 
@@ -584,10 +587,10 @@ app.ws("/api", function(ws, req){
                         if(ws.table.tableValue[0][0] !== "A"){
                             nextPlayer(ws.table)
                         }
-                        broadcastNewState(ws.table);
+                        broadcastNewState(ws.table, "card played");
                     }else if(newState.state === "passed"){
                         nextPlayer(ws.table)
-                        broadcastNewState(ws.table);
+                        broadcastNewState(ws.table, "card played");
                     }else{
                         console.log(newState)
                     }
@@ -638,7 +641,7 @@ app.ws("/api", function(ws, req){
                         ws.table.phase = "round"
                         ws.table.presidentSendCards = null;
                         ws.table.vicePresidentSendCards = null;
-                        broadcastNewState(ws.table);
+                        broadcastNewState(ws.table, "game started");
                     }
                 }
                 console.log(ws.table)
@@ -657,7 +660,7 @@ app.ws("/api", function(ws, req){
                 if(ws.table){
                     let idx = ws.table.players.indexOf(ws.id)
                     ws.table.playerNames[idx] = ws.playerName
-                    broadcastNewState(ws.table);
+                    broadcastNewState(ws.table, "change name");
                 }
                 break;
         }

@@ -14,7 +14,8 @@ class JoinTableScreen extends React.Component {
     }
   
     joinTable(){
-  
+      this.props.joinTable(document.getElementById("input_table_name").value)
+      
     }
   
     render(){

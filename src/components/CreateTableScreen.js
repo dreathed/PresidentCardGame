@@ -13,8 +13,6 @@ class CreateTableScreen extends React.Component {
       let numberOfPlayers = document.getElementById("input_min_players").value;
       let name = document.getElementById("input_tableName").value;
       let result = this.props.createTable(name, numberOfPlayers)
-      console.log(result)
-      this.props.screenChange(3)
     }
   
     btn_back(){
