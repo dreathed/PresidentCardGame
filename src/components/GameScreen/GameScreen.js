@@ -113,7 +113,9 @@ class CardSelector extends React.Component {
 class GameScreen extends React.Component {
     constructor(props){
       super(props)
-      this.state = {selectedCards: null, selectedCardsDraggedOverTable: false, cards: [["4", "H"], ["4", "S"], ["8", "C"], ["10", "D"], ["Q", "H"]], tableValue: [["7", "H"], ["7", "C"],["7", "D"]]}
+      console.log(this.props)
+      console.log(this.props.cards)
+      this.state = {selectedCards: null, selectedCardsDraggedOverTable: false, cards: this.props.cards, tableValue: [["7", "H"], ["7", "C"],["7", "D"]]}
   
       this.playCards = this.playCards.bind(this);
       this.setSelectedCards = this.setSelectedCards.bind(this);

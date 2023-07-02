@@ -177,6 +177,7 @@ function dealCards(table){
             player.cards.push(card);
             removeItem(card, thisCards);
         }
+        player.cards.sort(compareCards)
     }
     
     for(let player of players){
@@ -524,20 +525,20 @@ app.ws("/api", function(ws, req){
                     return;
                 }
                 if(!StringIsAlphaNumeric(msgObj.data.tableName)){
-                    ws.send(JSON.stringify({state: {error: "Table name not alphanumeric!"}}))
+                    ws.send(JSON.stringify({state: {msg: "error", error: "Table name not alphanumeric!"}}))
                     return;
                 }
 
                 // make sure table already exists:
                 let Players = getPlayerOnTableByName(msgObj.data.tableName)
                 if(Players.length <= 0){
-                    ws.send(JSON.stringify({state: {error: "Table not found!"}}))
+                    ws.send(JSON.stringify({state: {msg: "error", error: "Table not found!"}}))
                     return;
                 }
 
                 // if the target number of players is reached: do not allow more players
                 if(PlayerNumberReached(Players[0].table)){
-                    ws.send(JSON.stringify({state: {error: "Table name not available."}}))
+                    ws.send(JSON.stringify({state: {msg: "error", error: "Table name not available."}}))
                     return;
                 }
 
@@ -548,6 +549,7 @@ app.ws("/api", function(ws, req){
                 if(PlayerNumberReached(ws.table)){
                     ws.table.phase = "round"
                     dealCards(ws.table)
+
                     broadcastNewState(ws.table, "game started");
                     break;
                 }

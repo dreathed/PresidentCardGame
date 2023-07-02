@@ -58,8 +58,10 @@ class App extends React.Component {
           component.setState({"screen": 4, table: msgObj.state.data})
           break;
         case("Player Joined"):
-          component.setState({"table": msgObj.state.table})
+          component.setState({"screen": 4, "table": msgObj.state.table})
           break;
+        case("game started"):
+          component.setState({"screen": 3, "table": msgObj.state.table, "cards": msgObj.state.cards})
         default:
           console.log("No action taken.")
       }
@@ -81,7 +83,7 @@ class App extends React.Component {
         screen_view = <JoinTableScreen screenChange={this.screenChange} joinTable={this.joinTable}></JoinTableScreen>
         break;
       case(3):
-        screen_view = <GameScreen screenChange={this.screenChange} table={this.state.table}></GameScreen>
+        screen_view = <GameScreen screenChange={this.screenChange} table={this.state.table} cards={this.state.cards}></GameScreen>
         break;
       case(4):
         screen_view = <WaitingScreen screenChange={this.screenChange} table={this.state.table} players={this.state.table.playerNames}></WaitingScreen>
