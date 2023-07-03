@@ -14,15 +14,15 @@ class TableView extends React.Component {
       const value = args[0];
       switch(color){
         case("H"):
-          return <div key={String(value)+color} className="card" value={value}><span className="cardvalue red"></span>{value}<span className="cardcolor">{hearts}</span></div>
+          return <div key={String(value)+color} className="card" value={value} color={color}><span className="cardvalue red"></span>{value}<span className="cardcolor">{hearts}</span></div>
         case("D"):
-          return <div key={String(value)+color} className="card" value={value}><span className="cardvalue red"></span>{value}<span className="cardcolor">{diamonds}</span></div>
+          return <div key={String(value)+color} className="card" value={value} color={color}><span className="cardvalue red"></span>{value}<span className="cardcolor">{diamonds}</span></div>
         case("S"):
-          return <div key={String(value)+color} className="card" value={value}><span className="cardvalue red"></span>{value}<span className="cardcolor">{spades}</span></div>
+          return <div key={String(value)+color} className="card" value={value} color={color}><span className="cardvalue red"></span>{value}<span className="cardcolor">{spades}</span></div>
         case("C"):
-          return <div key={String(value)+color} className="card" value={value}><span className="cardvalue red"></span>{value}<span className="cardcolor">{clubs}</span></div>
+          return <div key={String(value)+color} className="card" value={value} color={color}><span className="cardvalue red"></span>{value}<span className="cardcolor">{clubs}</span></div>
         default:
-          <div key={String(value)+color} className="card" value={value}><span className="cardvalue red"></span><span className="cardcolor"></span></div>
+          <div key={String(value)+color} className="card" value={value} color={color}><span className="cardvalue red"></span><span className="cardcolor"></span></div>
       }
     }
   

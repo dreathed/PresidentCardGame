@@ -113,9 +113,7 @@ class CardSelector extends React.Component {
 class GameScreen extends React.Component {
     constructor(props){
       super(props)
-      console.log(this.props)
-      console.log(this.props.cards)
-      this.state = {selectedCards: null, selectedCardsDraggedOverTable: false, cards: this.props.cards, tableValue: [["7", "H"], ["7", "C"],["7", "D"]]}
+      this.state = {selectedCards: null, selectedCardsDraggedOverTable: false, cards: this.props.cards, tableValue: this.props.table.tableValue}
   
       this.playCards = this.playCards.bind(this);
       this.setSelectedCards = this.setSelectedCards.bind(this);
@@ -126,6 +124,10 @@ class GameScreen extends React.Component {
     }
   
     playCards(cards){
+      let newCards = [...cards].map(card => [card.getAttribute("value"), card.getAttribute("color")])
+      console.log(newCards)
+      this.props.playCards(newCards)
+      /*
         try{
             let value = cards[0].getAttribute("value");
             this.setState((state) => {
@@ -134,6 +136,7 @@ class GameScreen extends React.Component {
         }catch(e){
             console.log(e)
         }
+        */
     }
   
     componentDidMount(){
@@ -141,15 +144,16 @@ class GameScreen extends React.Component {
 
     componentDidUpdate(){
         console.log("Component updated" , this.state);
+        console.log("tableValue", this.props.table.tableValue)
     }
     
     render(){
       return (
         <div id="GameScreen">
           <header>Table Name: {this.props.table.name}</header>
-          <TableView tableValue={this.state.tableValue}></TableView>
+          <TableView key={this.props.table.tableValue} tableValue={this.props.table.tableValue}></TableView>
           <CardFan cards={this.state.cards} key={String(this.state.cards)}></CardFan>
-          <CardSelector setSelectedCards={this.setSelectedCards} playCards={this.playCards} selectedCards={this.state.selectedCards} tableValue={this.state.tableValue} key={String(this.state.selectedCards)}></CardSelector>
+          <CardSelector setSelectedCards={this.setSelectedCards} playCards={this.playCards} selectedCards={this.state.selectedCards} tableValue={this.props.table.tableValue} key={String(this.state.selectedCards)}></CardSelector>
         </div>
       )
     }

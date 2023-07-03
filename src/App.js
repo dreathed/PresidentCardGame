@@ -22,6 +22,7 @@ class App extends React.Component {
     this.setPlayerName = this.setPlayerName.bind(this);
     this.createTable = this.createTable.bind(this);
     this.joinTable = this.joinTable.bind(this);
+    this.playCards = this.playCards.bind(this);
   }
 
   setPlayerName(name){
@@ -45,6 +46,11 @@ class App extends React.Component {
     this.setState({"screen": screen})
   }
 
+  playCards(cards){
+    console.log("try to play the cards: ", cards);
+    this.ws.send(JSON.stringify({command: "playCards", data: cards}))
+  }
+
 
   componentDidMount(){
     let component = this;
@@ -61,7 +67,15 @@ class App extends React.Component {
           component.setState({"screen": 4, "table": msgObj.state.table})
           break;
         case("game started"):
+          if(msgObj.state.table.tableValue === null){
+            msgObj.state.table.tableValue = []
+          }
           component.setState({"screen": 3, "table": msgObj.state.table, "cards": msgObj.state.cards})
+        case("card played"):
+          if(msgObj.state.table.tableValue === null){
+            msgObj.state.table.tableValue = []
+          }
+          component.setState({"table": msgObj.state.table, "cards": msgObj.state.cards})
         default:
           console.log("No action taken.")
       }
@@ -83,7 +97,7 @@ class App extends React.Component {
         screen_view = <JoinTableScreen screenChange={this.screenChange} joinTable={this.joinTable}></JoinTableScreen>
         break;
       case(3):
-        screen_view = <GameScreen screenChange={this.screenChange} table={this.state.table} cards={this.state.cards}></GameScreen>
+        screen_view = <GameScreen screenChange={this.screenChange} table={this.state.table} cards={this.state.cards} playCards={this.playCards}></GameScreen>
         break;
       case(4):
         screen_view = <WaitingScreen screenChange={this.screenChange} table={this.state.table} players={this.state.table.playerNames}></WaitingScreen>
