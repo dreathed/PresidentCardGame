@@ -93,7 +93,20 @@ class CardSelector extends React.Component {
     }
 
     selectCard(cardValue){
-        const all_of_value = document.querySelectorAll(".card[value='"+cardValue+"']");
+        /*
+          This is not good.
+          There should be a method to select how many cards you want to play
+          if there is an option. When there is no option, the amout should be
+          selected automatically.
+        */
+
+
+        let all_of_value = document.querySelectorAll(".card[value='"+cardValue+"']");
+        if(this.props.tableValue.length > 0){
+          all_of_value = [...all_of_value].slice(0,this.props.tableValue.length)
+        }
+        
+        console.log("select Cards: ", all_of_value)
         for(let card of all_of_value){
           card.classList.add("selected");
         }
