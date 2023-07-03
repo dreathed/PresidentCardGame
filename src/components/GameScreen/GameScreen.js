@@ -138,7 +138,6 @@ class GameScreen extends React.Component {
   
     playCards(cards){
       let newCards = [...cards].map(card => [card.getAttribute("value"), card.getAttribute("color")])
-      console.log(newCards)
       this.props.playCards(newCards)
       /*
         try{
@@ -156,16 +155,15 @@ class GameScreen extends React.Component {
     }
 
     componentDidUpdate(){
-        console.log("Component updated" , this.state);
-        console.log("tableValue", this.props.table.tableValue)
     }
     
     render(){
+      console.log("render: ", String(this.props.cards))
       return (
         <div id="GameScreen">
           <header>Table Name: {this.props.table.name}</header>
           <TableView key={this.props.table.tableValue} tableValue={this.props.table.tableValue}></TableView>
-          <CardFan cards={this.state.cards} key={String(this.state.cards)}></CardFan>
+          <CardFan cards={this.props.cards} key={String(this.props.cards)}></CardFan>
           <CardSelector setSelectedCards={this.setSelectedCards} playCards={this.playCards} selectedCards={this.state.selectedCards} tableValue={this.props.table.tableValue} key={String(this.state.selectedCards)}></CardSelector>
         </div>
       )

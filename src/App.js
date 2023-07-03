@@ -27,13 +27,11 @@ class App extends React.Component {
 
   setPlayerName(name){
     this.setState({"playerName": String(name)})
-    console.log("Send to socket")
     this.ws.send(JSON.stringify({command: "changeName", data: name}))
   }
 
 
   createTable(tablename,number_of_players){
-    console.log("try to create table...")
     this.ws.send(JSON.stringify({command: "createTable", data: {numberOfPlayers: Number(number_of_players), tableName: tablename}}))
   }
 
@@ -47,7 +45,6 @@ class App extends React.Component {
   }
 
   playCards(cards){
-    console.log("try to play the cards: ", cards);
     this.ws.send(JSON.stringify({command: "playCards", data: cards}))
   }
 
