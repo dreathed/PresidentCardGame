@@ -311,11 +311,11 @@ function playCards(socket, cards){
 
 
 function nextPlayer(table){
-    for(let i=1; i < table.players.length-1; i++){
+    for(let i=1; i < table.players.length; i++){
         console.log("nextPlayer")
-        console.log("id: ", table.players[table.turn + (i%table.players.length)])
+        console.log("id: ", table.players[(table.turn + i)%table.players.length])
         console.log("was anderes: ", i%table.players.length)
-        console.log("table.turn + (i%table.players.length): ", table.turn + (i%table.players.length))
+        console.log("table.turn + (i%table.players.length): ", (table.turn + i)%table.players.length)
         console.log("i: ", i)
         if(getPlayerById(table.players[(table.turn + i)%table.players.length]).cards.length > 0){
             table.turn = ((table.turn + i)%table.players.length)
