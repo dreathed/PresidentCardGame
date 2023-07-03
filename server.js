@@ -230,6 +230,8 @@ function playCards(socket, cards){
         return {state: "error", msg:"An error occured..."}
     }
     
+    console.log("THE PLAYER PASSED")
+
     if(!cards.length>0){
         // the player passes
         return {state: "passed"};

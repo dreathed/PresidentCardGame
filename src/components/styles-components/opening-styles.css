@@ -32,25 +32,25 @@
     display: inline-block;
 }
 
-#openingScreen h1 span:nth-child(1), #CreateTableScreen h1 span:nth-child(1){
+#openingScreen h1 span:nth-child(1), #CreateTableScreen h1 span:nth-child(1), #PassBtn span:nth-child(1){
     transform: rotateZ(-15deg);
     color: darkred;
     animation: 1s ease-in-out 0s 1 "get-bigger", 0.5s ease-in-out 1s infinite alternate "funny-1";
 }
 
-#openingScreen h1 span:nth-child(2), #CreateTableScreen h1 span:nth-child(2){
+#openingScreen h1 span:nth-child(2), #CreateTableScreen h1 span:nth-child(2), #PassBtn span:nth-child(2){
     transform: rotateZ(-15deg);
     color: green;
     animation: 3s ease-in-out 0s 1 "get-bigger", 0.9s ease-in-out 3s infinite alternate "funny-1";
 }
 
-#openingScreen h1 span:nth-child(3), #CreateTableScreen h1 span:nth-child(3) {
+#openingScreen h1 span:nth-child(3), #CreateTableScreen h1 span:nth-child(3), #PassBtn span:nth-child(3) {
     transform: rotateZ(-15deg);
     color: blueviolet;
     animation: 1.8s ease-in-out 0s 1 "get-bigger-2", 0.8s ease-in-out 1.8s infinite alternate "funny-2";
 }
 
-#openingScreen h1 span:nth-child(4), #CreateTableScreen h1 span:nth-child(4) {
+#openingScreen h1 span:nth-child(4), #CreateTableScreen h1 span:nth-child(4), #PassBtn span:nth-child(4){
     transform: rotateZ(-10deg);
     color: darkblue;
     animation: 1.3s ease-in-out 0s 1 "get-bigger-2", 0.4s ease-in-out 1.3s infinite alternate "funny-2";
@@ -369,4 +369,25 @@ input:focus {
 button {
     width: 10vw;
     font-size: 3vh;
+}
+
+
+#PassBtn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 30vw;
+    height: 30vh;
+}
+
+#PassBtn button {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0);
+    border: none;
+    font-size: 4rem;
+}
+
+#PassBtn span {
+    display: inline-block;
 }

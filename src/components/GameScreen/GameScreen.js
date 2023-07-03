@@ -2,6 +2,27 @@ import React from 'react';
 import TableView from './TableView'
 import CardFan from './CardFan'
 
+
+class PassBtn extends React.Component {
+  constructor(props){
+    super(props)
+
+    this.pass = this.pass.bind(this);
+  }
+
+  pass(){
+    this.props.playCards([])
+  }
+
+  render(){
+    return (
+      <div id="PassBtn">
+        <button onClick={this.pass}><span>P</span><span>A</span><span>S</span><span>S</span></button>
+      </div>
+    )
+  }
+}
+
 class CardSelector extends React.Component {
     constructor(props){
         super(props)    
@@ -165,6 +186,7 @@ class GameScreen extends React.Component {
           <TableView key={this.props.table.tableValue} tableValue={this.props.table.tableValue}></TableView>
           <CardFan cards={this.props.cards} key={String(this.props.cards)}></CardFan>
           <CardSelector setSelectedCards={this.setSelectedCards} playCards={this.playCards} selectedCards={this.state.selectedCards} tableValue={this.props.table.tableValue} key={String(this.state.selectedCards)}></CardSelector>
+          <PassBtn playCards={this.props.playCards}></PassBtn>
         </div>
       )
     }
