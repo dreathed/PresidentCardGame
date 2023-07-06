@@ -116,17 +116,18 @@ class CardSelector extends React.Component {
       let width = document.body.clientWidth / 8
       console.log("this.cardMouseDown: ", this.cardMouseDown)
       console.log("handleDropAreaPointerMove")
+      let amount = document.querySelectorAll(".card[value='"+this.cardMouseDown.getAttribute("value")+"']").length;
         if(this.cardMouseDown){
           if(evt.pageX <= width){
-            this.cardAmount = 0
+            this.cardAmount = Math.min(0, amount)
           }else if(evt.pageX <= width*2){
-            this.cardAmount = 1
+            this.cardAmount = Math.min(1, amount)
           }else if(evt.pageX <= width*3){
-            this.cardAmount = 2
+            this.cardAmount = Math.min(2, amount)
           }else if(evt.pageX <= width*4){
-            this.cardAmount = 3
+            this.cardAmount = Math.min(3, amount)
           }else if(evt.pageX <= width*5){
-            this.cardAmount = 4
+            this.cardAmount = Math.min(4, amount)
           }
           console.log(this.cardAmount)
           this.selectCard(this.cardMouseDown.getAttribute("value"));
@@ -173,6 +174,7 @@ class CardSelector extends React.Component {
     render(){
         return (
             <div id="dragArea">
+              <span id="cardAmount" key={this.cardAmount}>{this.cardAmount}</span>
                 <div id="dropArea"></div>
             </div>
         )
@@ -184,7 +186,9 @@ class GameScreen extends React.Component {
     constructor(props){
       super(props)
       this.state = {selectedCards: null, selectedCardsDraggedOverTable: false, cards: this.props.cards, tableValue: this.props.table.tableValue}
-  
+      
+      this.cardAmount = 0;
+
       this.playCards = this.playCards.bind(this);
       this.setSelectedCards = this.setSelectedCards.bind(this);
     }
@@ -211,7 +215,7 @@ class GameScreen extends React.Component {
           <header>Table Name: {this.props.table.name}</header>
           <TableView key={this.props.table.tableValue} tableValue={this.props.table.tableValue}></TableView>
           <CardFan cards={this.props.cards} key={String(this.props.cards)}></CardFan>
-          <CardSelector setSelectedCards={this.setSelectedCards} playCards={this.playCards} selectedCards={this.state.selectedCards} tableValue={this.props.table.tableValue}></CardSelector>
+          <CardSelector setSelectedCards={this.setSelectedCards} playCards={this.playCards} getCardAmount={this.getCardAmount} selectedCards={this.state.selectedCards} tableValue={this.props.table.tableValue}></CardSelector>
           <PassBtn playCards={this.props.playCards}></PassBtn>
         </div>
       )
