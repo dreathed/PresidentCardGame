@@ -94,7 +94,7 @@ class App extends React.Component {
         screen_view = <JoinTableScreen screenChange={this.screenChange} joinTable={this.joinTable}></JoinTableScreen>
         break;
       case(3):
-        screen_view = <GameScreen screenChange={this.screenChange} table={this.state.table} cards={this.state.cards} playCards={this.playCards}></GameScreen>
+        screen_view = <GameScreen name={this.state.playerName} screenChange={this.screenChange} table={this.state.table} cards={this.state.cards} playCards={this.playCards}></GameScreen>
         break;
       case(4):
         screen_view = <WaitingScreen screenChange={this.screenChange} table={this.state.table} players={this.state.table.playerNames}></WaitingScreen>

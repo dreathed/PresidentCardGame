@@ -113,10 +113,18 @@ class CardSelector extends React.Component {
       }
 
     handleDropAreaPointerMove(evt){
-      let width = document.body.clientWidth / 8
-      console.log("this.cardMouseDown: ", this.cardMouseDown)
-      console.log("handleDropAreaPointerMove")
-      let amount = document.querySelectorAll(".card[value='"+this.cardMouseDown.getAttribute("value")+"']").length;
+      console.log("this.props.table: ", this.props.table)
+      console.log("this.table.lastPlayerWhoPlayedCards: ", this.props.table.lastPlayerWhoPlayedCards)
+      console.log("this.props.playerName: ", this.props.playerName)
+      console.log("this.props.table.playerNames[this.props.table.lastPlayerWhoPlayedCards]: ", this.props.table.playerNames[this.props.table.lastPlayerWhoPlayedCards])
+      console.log("this.props.table.playersNames: ", this.props.table.playerNames)
+      console.log("this.props.tableValue: ", this.props.tableValue)
+      if(this.props.tableValue.length === 0 ||
+        this.props.table.playerNames[this.props.table.lastPlayerWhoPlayedCards] === this.props.playerName){
+        let width = document.body.clientWidth / 8
+        console.log("this.cardMouseDown: ", this.cardMouseDown)
+        console.log("handleDropAreaPointerMove")
+        let amount = document.querySelectorAll(".card[value='"+this.cardMouseDown.getAttribute("value")+"']").length;
         if(this.cardMouseDown){
           if(evt.pageX <= width){
             this.cardAmount = Math.min(0, amount)
@@ -132,6 +140,11 @@ class CardSelector extends React.Component {
           console.log(this.cardAmount)
           this.selectCard(this.cardMouseDown.getAttribute("value"));
         }
+        }else if(this.props.tableValue.length > 0){
+          this.cardAmount = this.props.tableValue.length;
+          this.selectCard(this.cardMouseDown.getAttribute("value"));
+        }
+      
     }
 
     handleCardDrop(evt){
@@ -215,7 +228,7 @@ class GameScreen extends React.Component {
           <header>Table Name: {this.props.table.name}</header>
           <TableView key={this.props.table.tableValue} tableValue={this.props.table.tableValue}></TableView>
           <CardFan cards={this.props.cards} key={String(this.props.cards)}></CardFan>
-          <CardSelector setSelectedCards={this.setSelectedCards} playCards={this.playCards} getCardAmount={this.getCardAmount} selectedCards={this.state.selectedCards} tableValue={this.props.table.tableValue}></CardSelector>
+          <CardSelector playerName={this.props.name} setSelectedCards={this.setSelectedCards} playCards={this.playCards} getCardAmount={this.getCardAmount} selectedCards={this.state.selectedCards} tableValue={this.props.table.tableValue} table={this.props.table}></CardSelector>
           <PassBtn playCards={this.props.playCards}></PassBtn>
         </div>
       )

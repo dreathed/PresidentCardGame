@@ -150,7 +150,8 @@ function getPrivateState(table){
         viceTrash: table.viceTrash,
         turn: table.turn,
         targetNumberOfPlayers: table.targetNumberOfPlayers,
-        phase: table.phase
+        phase: table.phase,
+        lastPlayerWhoPlayedCards: table.lastPlayerWhoPlayedCards ? table.players.indexOf(table.lastPlayerWhoPlayedCards) : null
     }
 }
 
