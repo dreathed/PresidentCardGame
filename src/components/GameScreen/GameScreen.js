@@ -113,18 +113,9 @@ class CardSelector extends React.Component {
       }
 
     handleDropAreaPointerMove(evt){
-      console.log("this.props.table: ", this.props.table)
-      console.log("this.table.lastPlayerWhoPlayedCards: ", this.props.table.lastPlayerWhoPlayedCards)
-      console.log("this.props.playerName: ", this.props.playerName)
-      console.log("this.props.table.playerNames[this.props.table.lastPlayerWhoPlayedCards]: ", this.props.table.playerNames[this.props.table.lastPlayerWhoPlayedCards])
-      console.log("this.props.table.playersNames: ", this.props.table.playerNames)
-      console.log("this.props.tableValue: ", this.props.tableValue)
-      console.log("this.props.table.id: ", this.props.table.id)
       if(this.props.tableValue.length === 0 ||
         this.props.table.lastPlayerWhoPlayedCards === this.props.table.id){
         let width = document.body.clientWidth / 8
-        console.log("this.cardMouseDown: ", this.cardMouseDown)
-        console.log("handleDropAreaPointerMove")
         let amount = document.querySelectorAll(".card[value='"+this.cardMouseDown.getAttribute("value")+"']").length;
         if(this.cardMouseDown){
           if(evt.pageX <= width){
@@ -138,7 +129,6 @@ class CardSelector extends React.Component {
           }else if(evt.pageX <= width*5){
             this.cardAmount = Math.min(4, amount)
           }
-          console.log(this.cardAmount)
           this.selectCard(this.cardMouseDown.getAttribute("value"));
         }
         }else if(this.props.tableValue.length > 0){
