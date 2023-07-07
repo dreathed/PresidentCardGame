@@ -143,7 +143,7 @@ function getPlayerById(id){
 function getPrivateState(table){
     // this does not really matter. Since we are sending
     // basically all the data anyway.
-    
+
     return {name: table.name,
         playerNames: table.playerNames,
         tableValue: table.tableValue,
@@ -382,7 +382,7 @@ function leaveTable(socket){
     // if the player who left is the last one who played:
     // the right to play go to the next player.
     if(socket.table.lastPlayerWhoPlayedCards === socket.id){
-        let index = socket.table.player.indexOf(socket.id)
+        let index = socket.table.players.indexOf(socket.id)
         let next = (index + 1) % socket.table.player.length
         socket.table.lastPlayerWhoPlayedCards = socket.table.players[next]
     }
@@ -403,6 +403,10 @@ function determineRoles(table){
     let players = getPlayersOnTable(table);
     let TurnPlayer = players.filter((player) => player.id === table.lastPlayerWhoPlayedCards)[0]
     let PlayersWithCards = players.filter((player) => player.cards.length > 0)
+    console.log("players: ", players)
+    console.log("TurnPlayer: ",TurnPlayer)
+    console.log("PlayersWithCards: ", PlayersWithCards)
+    console.log("TurnPlayer.cards.length: ",TurnPlayer.cards.length)
     if(TurnPlayer.cards.length === 0){ 
         if(PlayersWithCards.length === 1){
             if(!table.president){
