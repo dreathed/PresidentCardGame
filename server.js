@@ -141,6 +141,9 @@ function getPlayerById(id){
 }
 
 function getPrivateState(table){
+    // this does not really matter. Since we are sending
+    // basically all the data anyway.
+    
     return {name: table.name,
         playerNames: table.playerNames,
         tableValue: table.tableValue,
@@ -161,7 +164,9 @@ function broadcastNewState(table, msg){
 
     // do not send the ids to the clients. This does not seem to be a good idea...
     let privateState = getPrivateState(table)
+    
     for(let socket of sockets){
+        privateState.id = socket.id
         socket.send(JSON.stringify({state:{msg: msg, cards: socket.cards, table: privateState}}))
     }
 }

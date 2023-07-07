@@ -119,8 +119,9 @@ class CardSelector extends React.Component {
       console.log("this.props.table.playerNames[this.props.table.lastPlayerWhoPlayedCards]: ", this.props.table.playerNames[this.props.table.lastPlayerWhoPlayedCards])
       console.log("this.props.table.playersNames: ", this.props.table.playerNames)
       console.log("this.props.tableValue: ", this.props.tableValue)
+      console.log("this.props.table.id: ", this.props.table.id)
       if(this.props.tableValue.length === 0 ||
-        this.props.table.playerNames[this.props.table.lastPlayerWhoPlayedCards] === this.props.playerName){
+        this.props.table.lastPlayerWhoPlayedCards === this.props.table.id){
         let width = document.body.clientWidth / 8
         console.log("this.cardMouseDown: ", this.cardMouseDown)
         console.log("handleDropAreaPointerMove")
