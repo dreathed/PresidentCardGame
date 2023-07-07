@@ -144,6 +144,7 @@ function getPrivateState(table){
     return {name: table.name,
         playerNames: table.playerNames,
         tableValue: table.tableValue,
+        players: table.players,
         president: table.president,
         vicePresident: table.vicePresident,
         trash: table.trash,
@@ -151,7 +152,7 @@ function getPrivateState(table){
         turn: table.turn,
         targetNumberOfPlayers: table.targetNumberOfPlayers,
         phase: table.phase,
-        lastPlayerWhoPlayedCards: table.lastPlayerWhoPlayedCards ? table.players.indexOf(table.lastPlayerWhoPlayedCards) : null
+        lastPlayerWhoPlayedCards: table.lastPlayerWhoPlayedCards
     }
 }
 
