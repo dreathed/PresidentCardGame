@@ -9,6 +9,17 @@
         font-size: 10vw;
         padding-top: 20%;
     }
+
+    button {
+        font-size: 2vh;
+        height: 50%;
+    }
+
+    .button-container {
+        display: grid;
+        justify-items: center;
+        height: 30vh;
+    }
 }
 
 
@@ -20,6 +31,17 @@
         text-align: center;
         font-size: 5vw;
         padding-top: 5%;
+    }
+
+    button {
+        width: 10vw;
+        font-size: 3vh;
+    }
+
+    .button-container {
+        display: inline-flex;
+        width: 50%;
+        justify-content: space-evenly;
     }
 }
 
@@ -138,7 +160,7 @@
 
 #openingScreen h1 span:nth-child(14) {
     transform: rotateZ(15deg);
-    text-shadow: rgba(215, 14, 255, 0.795) 0 0 12px;
+    text-shadow: rgba(215, 14, 255, 0.795) 0 0 1vw;
     background: linear-gradient(-0.15turn, rgb(146, 12, 135), 100%, rgba(52, 228, 140, 0.575));
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -147,7 +169,7 @@
 
 #openingScreen h1 span:nth-child(15) {
     transform: rotateZ(15deg);
-    text-shadow: rgb(0, 255, 0) 0 0 8px;
+    text-shadow: rgb(0, 255, 0) 0 0 0.8vw;
     background: linear-gradient(-0.15turn, rgb(15, 88, 0), 50%, rgba(110, 255, 183, 0.205));
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -156,7 +178,7 @@
 
 #openingScreen h1 span:nth-child(16) {
     transform: rotateZ(15deg);
-    text-shadow: rgb(16, 103, 233) 0 0 10px;
+    text-shadow: rgb(16, 103, 233) 0 0 1vw;
     background: linear-gradient(-0.15turn, rgb(11, 153, 209), 75%, rgba(45, 163, 231, 0.205));
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -165,7 +187,7 @@
 
 #openingScreen h1 span:nth-child(17) {
     transform: rotateZ(15deg);
-    text-shadow: rgba(245, 255, 99, 0.959) 0 0 15px;
+    text-shadow: rgba(245, 255, 99, 0.959) 0 0 0.8vw;
     background: linear-gradient(-0.15turn, rgb(151, 161, 12), 100%, rgba(255, 72, 0, 0.733));
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -175,7 +197,7 @@
 
 #openingScreen h1 span:nth-child(18) {
     transform: rotateZ(15deg);
-    text-shadow: rgb(146, 30, 98) 0 0 15px;
+    text-shadow: rgb(146, 30, 98) 0 0 0.8vw;
     background: linear-gradient(-0.15turn, rgb(218, 4, 111), 50%, rgba(138, 85, 64, 0.733));
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -184,7 +206,7 @@
 
 #openingScreen h1 span:nth-child(19) {
     transform: rotateZ(15deg);
-    text-shadow: rgba(255, 7, 7, 0.774) 0 0 15px;
+    text-shadow: rgba(255, 7, 7, 0.774) 0 0 0.9vw;
     background: linear-gradient(-0.15turn, rgb(255, 32, 32), 50%, rgba(138, 17, 17, 0.479));
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -193,7 +215,7 @@
 
 #openingScreen h1 span:nth-child(20) {
     transform: rotateZ(15deg);
-    text-shadow: rgba(100, 5, 252, 0.856) 0 0 15px;
+    text-shadow: rgba(100, 5, 252, 0.856) 0 0 0.8vw;
     background: linear-gradient(-0.15turn, rgb(32, 91, 255), 50%, rgba(82, 108, 255, 0.822));
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -203,7 +225,7 @@
 #openingScreen h1 span:nth-child(21) {
     transform: rotateZ(15deg);
     
-    text-shadow: rgba(26, 252, 5, 0.815) 0 0 10px;
+    text-shadow: rgba(26, 252, 5, 0.815) 0 0 0.5vw;
     
     background: linear-gradient(-0.15turn, rgb(149, 209, 108), 100%, rgba(121, 255, 172, 0.329));
     background-clip: text;
@@ -215,7 +237,7 @@
 #openingScreen h1 span:nth-child(22) {
     transform: rotateZ(15deg);
     
-    text-shadow: rgba(212, 70, 255, 0.9) 0 0 20px;
+    text-shadow: rgba(212, 70, 255, 0.9) 0 0 0.5vw;
     
     background: linear-gradient(-0.15turn, rgb(112, 28, 247), 100%, rgba(121, 255, 172, 0.329));
     background-clip: text;
@@ -360,16 +382,9 @@ input:focus {
     }
 }
 
-.button-container {
-    display: inline-flex;
-    width: 50%;
-    justify-content: space-evenly;
-}
 
-button {
-    width: 10vw;
-    font-size: 3vh;
-}
+
+
 
 
 #PassBtn {

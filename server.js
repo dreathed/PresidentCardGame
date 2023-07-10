@@ -457,7 +457,7 @@ function exchangeCardsVice(cards, table){
     let trash_socket = players.filter((player) => player.id === table.viceTrash)[0];
     let sortedCards = trash_socket.cards.sort(compareCards)
     let bestCard = sortedCards[sortedCards.length-1]
-    if(president_socket.cards.includes(card[0])){
+    if(president_socket.cards.includes(cards[0])){
         removeCard(cards[0], president_socket.cards);
         removeCard(bestCard, trash_socket.cards)
         trash_socket.cards.push(cards[0])
