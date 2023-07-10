@@ -44,6 +44,14 @@ html, body, #App, #root, #GameScreen {
   height: 100%;
   margin: 0;
   padding: 0;
+  position: relative;
+}
+
+#ExchangeInfo {
+  top:0;
+  position: absolute;
+  z-index: 999;
+  width: 100%;
 }
 
 html {

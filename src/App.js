@@ -23,6 +23,8 @@ class App extends React.Component {
     this.createTable = this.createTable.bind(this);
     this.joinTable = this.joinTable.bind(this);
     this.playCards = this.playCards.bind(this);
+    this.sendCards = this.sendCards.bind(this);
+    this.setTableValue = this.setTableValue.bind(this);
   }
 
   setPlayerName(name){
@@ -46,6 +48,22 @@ class App extends React.Component {
 
   playCards(cards){
     this.ws.send(JSON.stringify({command: "playCards", data: cards}))
+  }
+
+  sendCards(cards){
+    this.ws.send(JSON.stringify({command: "sendCards", data: cards}))
+  }
+
+  setTableValue(value){
+    this.setState((state) => {
+      if(state.table){
+        let newTable = state.table;
+        newTable.tableValue = value;
+        console.log("OUT: ", value)
+        console.log("OUTERMOST: ", newTable)
+        return {"table": newTable}
+      }
+    })
   }
 
 
@@ -94,7 +112,7 @@ class App extends React.Component {
         screen_view = <JoinTableScreen screenChange={this.screenChange} joinTable={this.joinTable}></JoinTableScreen>
         break;
       case(3):
-        screen_view = <GameScreen name={this.state.playerName} screenChange={this.screenChange} table={this.state.table} cards={this.state.cards} playCards={this.playCards}></GameScreen>
+        screen_view = <GameScreen setTableValue={this.setTableValue} sendCards={this.sendCards} name={this.state.playerName} screenChange={this.screenChange} table={this.state.table} cards={this.state.cards} playCards={this.playCards}></GameScreen>
         break;
       case(4):
         screen_view = <WaitingScreen screenChange={this.screenChange} table={this.state.table} players={this.state.table.playerNames}></WaitingScreen>

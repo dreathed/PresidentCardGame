@@ -383,7 +383,7 @@ function leaveTable(socket){
     // the right to play go to the next player.
     if(socket.table.lastPlayerWhoPlayedCards === socket.id){
         let index = socket.table.players.indexOf(socket.id)
-        let next = (index + 1) % socket.table.player.length
+        let next = (index + 1) % socket.table.players.length
         socket.table.lastPlayerWhoPlayedCards = socket.table.players[next]
     }
 
@@ -401,11 +401,13 @@ function determineRoles(table){
     // this function only works if it is called after a player played cards, but it is still this players turn.
 
     let players = getPlayersOnTable(table);
-    let TurnPlayer = players.filter((player) => player.id === table.lastPlayerWhoPlayedCards)[0]
+    
+    //let TurnPlayer = players.filter((player) => player.id === table.lastPlayerWhoPlayedCards)[0]
+    let TurnPlayer = getPlayerById(table.players[table.turn])
     let PlayersWithCards = players.filter((player) => player.cards.length > 0)
     console.log("players: ", players)
-    console.log("TurnPlayer: ",TurnPlayer)
-    console.log("PlayersWithCards: ", PlayersWithCards)
+    console.log("PlayersWithCards.length ", PlayersWithCards.length)
+    console.log("!table.president ", !table.president)
     console.log("TurnPlayer.cards.length: ",TurnPlayer.cards.length)
     if(TurnPlayer.cards.length === 0){ 
         if(PlayersWithCards.length === 1){
@@ -598,8 +600,8 @@ app.ws("/api", function(ws, req){
                         if(ws.table.trash !== null){
                             dealCards(ws.table)
                             ws.table.phase = "exchange";
-                        }
-                        if(ws.table.tableValue[0][0] !== "A"){
+                            ws.table.tableValue = []
+                        }else if(ws.table.tableValue[0][0] !== "A"){
                             nextPlayer(ws.table)
                         }
                         broadcastNewState(ws.table, "card played");
@@ -617,6 +619,8 @@ app.ws("/api", function(ws, req){
             case("sendCards"):
                 // check if socket has these attributes...
                 // theoretically anymone can send this message, without the socket having the table property...
+
+                console.log("Received SendCards Message")
 
                 if(!ws.hasOwnProperty("table")){
                     ws.send(JSON.stringify({state: {error: "Table not available."}}))

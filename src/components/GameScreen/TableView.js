@@ -6,6 +6,9 @@ class TableView extends React.Component {
       super(props)
       this.makeCards = this.makeCards.bind(this)
       this.cards = this.props.tableValue.map(this.makeCards)
+      if(this.props.table.phase === "exchange"){
+        this.props.table.tableValue = []
+      }
     }
 
 

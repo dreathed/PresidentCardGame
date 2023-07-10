@@ -90,7 +90,6 @@ class CardSelector extends React.Component {
             this.props.setSelectedCards(null);
           }
         }
-        console.log("set card mouse down null")
         this.cardMouseDown = null;
 
         let dropArea = document.getElementById("dropArea");
@@ -147,6 +146,7 @@ class CardSelector extends React.Component {
       }
 
     handleDropPointereOver(evt){
+      console.log("JOJOJO")
         if(this.cardMouseDown){
             this.selectCard(this.cardMouseDown.getAttribute("value"));
         }
@@ -186,6 +186,65 @@ class CardSelector extends React.Component {
 }
 
 
+
+class ExchangeCardSelector extends CardSelector {
+  constructor(props){
+    super(props)
+    this.Cards = []
+    if(this.props.table.president === this.props.table.id){
+      this.targetLength = 2;
+    }else if(this.props.table.vicePresident === this.props.table.id){
+      this.targetLength = 1;
+    }else{
+      this.targetLength = 0;
+    }
+    
+  }
+
+  handleDropAreaPointerMove(evt){
+    this.cardAmount = 1;
+  }
+
+  selectCard(){
+    console.log("started to select card")
+    console.log("this.cardMouseDown: ", this.cardMouseDown)
+    if(this.cardMouseDown){
+      this.Cards.push([this.cardMouseDown.getAttribute("value"), this.cardMouseDown.getAttribute("color")])
+      console.log("this.Cards: ", this.Cards)
+      if(this.Cards.length == this.targetLength){
+        this.props.sendCards(this.Cards)
+      }
+    }
+  }
+
+
+  handleDropAreaPointerMove(evt){
+
+  }
+
+  handleDropPointereOver(evt){
+    //pass
+}
+
+  handleCardPointerUp(evt){
+
+}
+
+  handleCardDrop(evt){
+    console.log("DROP")
+    this.selectCard()
+  }
+
+  render(){
+    return (
+        <div id="dragArea">
+            <div id="dropArea"></div>
+        </div>
+    )
+}
+
+}
+
 class GameScreen extends React.Component {
     constructor(props){
       super(props)
@@ -205,6 +264,7 @@ class GameScreen extends React.Component {
       let newCards = [...cards].map(card => [card.getAttribute("value"), card.getAttribute("color")])
       this.props.playCards(newCards)
     }
+
   
     componentDidMount(){
     }
@@ -213,14 +273,53 @@ class GameScreen extends React.Component {
     }
     
     render(){
-      console.log("render: ", String(this.props.cards))
+
+      let PlayInfo;
+      let Role;
+      let ExchangeInfo;
+      let Selector;
+      let MyPassBtn;
+      let MyTableView;
+      let MyCardFan;
+      if(this.props.table.phase === "exchange"){
+        if(this.props.table.president === this.props.table.id){
+          Role = "President"
+          PlayInfo = "Please select two cards for the Trash!"
+        }else if(this.props.table.vicePresident === this.props.table.id){
+          Role = "Vice President"
+          PlayInfo = "Please select one card for the Vice Trash!"
+        }else if(this.props.table.trash === this.props.table.id){
+          Role = "Trash"
+          PlayInfo = "Please wait until the President dumped two trash cards on you!"
+        }else if(this.props.table.trash === this.props.table.id){
+          Role = "Vice Trash"
+          PlayInfo = "Please wait until the Vice President dumped a trash card on you!"
+        }else {
+          Role = "Neutral"
+          PlayInfo = "Please wait until the President and Vice President dumped their trash cards!"
+        }
+        ExchangeInfo = <div id='ExchangeInfo'><h1>You Are {Role}</h1><p>{PlayInfo}</p></div>
+        Selector = <ExchangeCardSelector setTableValue={this.props.setTableValue} sendCards={this.props.sendCards} playerName={this.props.name} setSelectedCards={this.setSelectedCards} playCards={this.playCards} getCardAmount={this.getCardAmount} selectedCards={this.state.selectedCards ? this.state.selectedCards : []} tableValue={this.props.table.tableValue} table={this.props.table}></ExchangeCardSelector>
+        MyPassBtn = <div></div>
+        MyTableView = <TableView key={this.props.table.tableValue} tableValue={this.props.table.tableValue} table={this.props.table}></TableView>
+        MyCardFan = <CardFan cards={this.props.cards} key={String(this.props.cards)}></CardFan>
+      }else {
+        ExchangeInfo = <div></div>
+        Selector = <CardSelector sendCards={this.props.sendCards} playerName={this.props.name} setSelectedCards={this.setSelectedCards} playCards={this.playCards} getCardAmount={this.getCardAmount} selectedCards={this.state.selectedCards} tableValue={this.props.table.tableValue} table={this.props.table}></CardSelector>
+        MyPassBtn = <PassBtn playCards={this.props.playCards}></PassBtn>
+        MyTableView = <TableView key={this.props.table.tableValue} tableValue={this.props.table.tableValue} table={this.props.table}></TableView>
+        MyCardFan = <CardFan cards={this.props.cards} key={String(this.props.cards)}></CardFan>
+      }
+
+
       return (
         <div id="GameScreen">
           <header>Table Name: {this.props.table.name}</header>
-          <TableView key={this.props.table.tableValue} tableValue={this.props.table.tableValue}></TableView>
+          {ExchangeInfo}
+          {MyTableView}
           <CardFan cards={this.props.cards} key={String(this.props.cards)}></CardFan>
-          <CardSelector playerName={this.props.name} setSelectedCards={this.setSelectedCards} playCards={this.playCards} getCardAmount={this.getCardAmount} selectedCards={this.state.selectedCards} tableValue={this.props.table.tableValue} table={this.props.table}></CardSelector>
-          <PassBtn playCards={this.props.playCards}></PassBtn>
+          {Selector}
+          {MyPassBtn}
         </div>
       )
     }
