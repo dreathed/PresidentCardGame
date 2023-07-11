@@ -21,7 +21,43 @@
   color: #61dafb;
 }
 
-@media (max-width: 800px) {}
+@media (max-width: 800px) {
+  #cardAmount {
+    width: 20vw;
+    background-color: rgba(0,0,0,0);
+    display:block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 23vw;
+    line-height: 18vh;
+    height: 18vh;
+    animation: "spin";
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+}
+
+@media (min-width: 801px){
+  #cardAmount {
+    width: 500px;
+    height:500px;
+    background-color: rgba(0,0,0,0);
+    display:block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 6rem;
+    animation: "spin";
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+  
+}
 
 html, body, #App, #root, #GameScreen {
   height: 100%;
@@ -71,21 +107,6 @@ html {
   }
 }
 
-#cardAmount {
-  width: 500px;
-  height:500px;
-  background-color: rgba(0,0,0,0);
-  display:block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  font-size: 6rem;
-  animation: "spin";
-  animation-duration: 1s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
 
 
 #cardFan {

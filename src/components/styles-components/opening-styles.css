@@ -20,6 +20,22 @@
         justify-items: center;
         height: 30vh;
     }
+
+    #PassBtn {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 58vw;
+        height: 18vh;
+    }
+
+    #PassBtn button {
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0);
+        border: none;
+        font-size: 15vw;
+    }
 }
 
 
@@ -42,6 +58,22 @@
         display: inline-flex;
         width: 50%;
         justify-content: space-evenly;
+    }
+
+    #PassBtn {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 30vw;
+        height: 30vh;
+    }
+
+    #PassBtn button {
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0);
+        border: none;
+        font-size: 4rem;
     }
 }
 
@@ -387,21 +419,9 @@ input:focus {
 
 
 
-#PassBtn {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 30vw;
-    height: 30vh;
-}
 
-#PassBtn button {
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0);
-    border: none;
-    font-size: 4rem;
-}
+
+
 
 #PassBtn span {
     display: inline-block;
