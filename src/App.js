@@ -14,7 +14,11 @@ class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {"screen": 0, "playerName": undefined, "table": null}
-    this.ws = new WebSocket("ws://localhost:2000/api");
+
+    /*
+      For glitch use: this.ws = new WebSocket("wss://patch-steel-mochi.glitch.me/api");
+    */
+    this.ws = new WebSocket("ws://localhost:3000/api");
 
     this.screenChange = this.screenChange.bind(this);
     this.setPlayerName = this.setPlayerName.bind(this);
