@@ -201,6 +201,7 @@ class ExchangeCardSelector extends CardSelector {
     if(this.cardMouseDown){
       this.Cards.push([this.cardMouseDown.getAttribute("value"), this.cardMouseDown.getAttribute("color")])
       console.log("this.Cards: ", this.Cards)
+      this.props.setTableValue(this.Cards)
       if(this.Cards.length == this.targetLength){
         this.props.sendCards(this.Cards)
       }

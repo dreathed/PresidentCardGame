@@ -57,6 +57,11 @@ class App extends React.Component {
   }
 
   setTableValue(value){
+    let newTable = structuredClone(this.state.table);
+    newTable.tableValue = value;
+    console.log("newTable: ", newTable)
+    this.setState({table: newTable})
+    /*
     this.setState((state) => {
       if(state.table){
         let newTable = state.table;
@@ -66,6 +71,7 @@ class App extends React.Component {
         return {"table": newTable}
       }
     })
+    */
   }
 
 
