@@ -60,7 +60,12 @@ class App extends React.Component {
     let newTable = structuredClone(this.state.table);
     newTable.tableValue = value;
     console.log("newTable: ", newTable)
-    this.setState({table: newTable})
+    let newCards = this.state.cards.filter((card) => {
+      for(let valueCard of value){
+        return !(card[0] === valueCard[0] && card[1] === valueCard[1])
+      }
+    })
+    this.setState({table: newTable, cards: newCards})
     /*
     this.setState((state) => {
       if(state.table){

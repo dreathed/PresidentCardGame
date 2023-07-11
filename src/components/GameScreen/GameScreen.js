@@ -295,7 +295,7 @@ class GameScreen extends React.Component {
       let Selector;
       let MyPassBtn;
       let MyTableView;
-
+      let MyCardFan;
       if(this.props.table.phase === "exchange"){
         if(this.props.table.president === this.props.table.id){
           Role = "President"
@@ -317,13 +317,13 @@ class GameScreen extends React.Component {
         Selector = <ExchangeCardSelector setTableValue={this.props.setTableValue} sendCards={this.props.sendCards} playerName={this.props.name} setSelectedCards={this.setSelectedCards} playCards={this.playCards} getCardAmount={this.getCardAmount} selectedCards={this.state.selectedCards ? this.state.selectedCards : []} tableValue={this.props.table.tableValue} table={this.props.table}></ExchangeCardSelector>
         MyPassBtn = <div></div>
         MyTableView = <TableView key={this.props.table.tableValue} tableValue={this.props.table.tableValue} table={this.props.table}></TableView>
-
+        MyCardFan = <CardFan cards={this.props.cards} key={String(this.props.cards)}></CardFan>
       }else {
         ExchangeInfo = <div></div>
         Selector = <CardSelector sendCards={this.props.sendCards} playerName={this.props.name} setSelectedCards={this.setSelectedCards} playCards={this.playCards} getCardAmount={this.getCardAmount} selectedCards={this.state.selectedCards} tableValue={this.props.table.tableValue} table={this.props.table}></CardSelector>
         MyPassBtn = <PassBtn playCards={this.props.playCards}></PassBtn>
         MyTableView = <TableView key={this.props.table.tableValue} tableValue={this.props.table.tableValue} table={this.props.table}></TableView>
-
+        MyCardFan = <CardFan cards={this.props.cards} key={String(this.props.cards)}></CardFan>
       }
 
       let TurnInfo = this.props.table.players[this.props.table.turn] == this.props.table.id ? "Your turn!" : this.props.table.playerNames[this.props.table.turn] +"'s turn"
@@ -333,7 +333,7 @@ class GameScreen extends React.Component {
           <header>{TurnInfo}</header>
           {ExchangeInfo}
           {MyTableView}
-          <CardFan cards={this.props.cards} key={String(this.props.cards)}></CardFan>
+          {MyCardFan}
           {Selector}
           {MyPassBtn}
         </div>
