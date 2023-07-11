@@ -73,7 +73,7 @@ html, body, #App, #root, #GameScreen {
   width: 100%;
 }
 
-html {
+body {
   overflow: hidden;
 }
 
@@ -195,3 +195,15 @@ svg {
   pointer-events: none;
 }
 
+#InstructionsScreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: scroll;
+}
+
+nav {
+  margin-top: 5%;
+}

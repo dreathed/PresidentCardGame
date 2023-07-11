@@ -7,13 +7,14 @@ import CreateTableScreen from './components/CreateTableScreen'
 import JoinTableScreen from './components/JoinTableScreen'
 import GameScreen from './components/GameScreen/GameScreen'
 import WaitingScreen from './components/WaitingScreen'
+import InstructionsScreen from './components/InstructionsScreen';
 
 
 
 class App extends React.Component {
   constructor(props){
     super(props);
-    this.state = {"screen": 0, "playerName": undefined, "table": null}
+    this.state = {"screen": -1, "playerName": undefined, "table": null}
 
     /*
       For glitch use: this.ws = new WebSocket("wss://patch-steel-mochi.glitch.me/api");
@@ -66,17 +67,6 @@ class App extends React.Component {
       }
     })
     this.setState({table: newTable, cards: newCards})
-    /*
-    this.setState((state) => {
-      if(state.table){
-        let newTable = state.table;
-        newTable.tableValue = value;
-        console.log("OUT: ", value)
-        console.log("OUTERMOST: ", newTable)
-        return {"table": newTable}
-      }
-    })
-    */
   }
 
 
@@ -99,11 +89,13 @@ class App extends React.Component {
             msgObj.state.table.tableValue = []
           }
           component.setState({"screen": 3, "table": msgObj.state.table, "cards": msgObj.state.cards})
+          break;
         case("card played"):
           if(msgObj.state.table.tableValue === null){
             msgObj.state.table.tableValue = []
           }
           component.setState({"table": msgObj.state.table, "cards": msgObj.state.cards})
+          break;
         default:
           console.log("No action taken.")
       }
@@ -115,6 +107,9 @@ class App extends React.Component {
     console.log(this.state)
     let screen_view;
     switch(this.state.screen){
+      case(-1):
+        screen_view = <InstructionsScreen screenChange={this.screenChange}></InstructionsScreen>
+        break;
       case(0):
         screen_view = <OpeningScreen screenChange={this.screenChange} setPlayerName={this.setPlayerName}></OpeningScreen>
         break;
