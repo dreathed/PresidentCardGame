@@ -99,7 +99,7 @@ class CardSelector extends React.Component {
       }
 
     handleCardPointerMove(evt){
-        let dragoverElem = document.elementFromPoint(evt.pageX - window.pageXOffset, evt.pageY - window.pageYOffset);
+        let dragoverElem = document.elementFromPoint(evt.pageX, evt.pageY);
         if(dragoverElem.getAttribute("id") === "dropArea"){
           this.handleDropAreaPointerMove(evt)
           this.handleDropPointereOver(evt)
@@ -113,6 +113,7 @@ class CardSelector extends React.Component {
       }
 
     handleDropAreaPointerMove(evt){
+      
       if(this.props.tableValue.length === 0 ||
         this.props.table.lastPlayerWhoPlayedCards === this.props.table.id){
         let width = document.body.clientWidth / 8
@@ -191,6 +192,7 @@ class ExchangeCardSelector extends CardSelector {
 
   handleDropAreaPointerMove(evt){
     this.cardAmount = 1;
+    console.log("JAPJAPJAP")
   }
 
   selectCard(){
@@ -215,11 +217,35 @@ class ExchangeCardSelector extends CardSelector {
 }
 
   handleCardPointerUp(evt){
+    console.log(evt)
+    let dragoverElem = document.elementFromPoint(evt.pageX, evt.pageY);
+    console.log(dragoverElem)
+    if(dragoverElem.getAttribute("id") === "dropArea"){
+        this.handleCardDrop(evt)
+    }
+    
+    if(this.cardTimeout){
+      window.clearTimeout(this.cardTimeout);
+      this.cardTimeout = null;
+      this.cardPageX = null;
+    }
 
-}
+    const selected = document.querySelectorAll(".selected");
+    if(selected){
+      for(let card of selected){
+        card.classList.remove("selected")
+        this.props.setSelectedCards(null);
+      }
+    }
+    this.cardMouseDown = null;
+
+    let dropArea = document.getElementById("dropArea");
+    dropArea.removeEventListener("pointermove", this.handleDropAreaPointerMove);
+  }
 
   handleCardDrop(evt){
     console.log("DROP")
+    console.log(evt)
     this.selectCard()
   }
 
