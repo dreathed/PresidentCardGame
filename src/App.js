@@ -14,7 +14,6 @@ class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {"screen": 0, "playerName": undefined, "table": null}
-
     this.ws = new WebSocket("ws://localhost:2000/api");
 
     this.screenChange = this.screenChange.bind(this);

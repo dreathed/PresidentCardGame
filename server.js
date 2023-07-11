@@ -24,6 +24,7 @@ let cardValues = ["2","3","4","5","6","7","8","9","10","J","Q","K","A"];
 let cardColors = ["D", "H", "S", "C"];
 let cardDeck = [];
 
+
 for(let value of cardValues){
     for(let color of cardColors){
         cardDeck.push([value, color])
