@@ -72,7 +72,9 @@ class CardSelector extends React.Component {
       }
 
     handleCardPointerUp(evt){
-        let dragoverElem = document.elementFromPoint(evt.pageX - window.pageXOffset, evt.pageY - window.pageYOffset);
+      console.log(evt)
+        let dragoverElem = document.elementFromPoint(evt.pageX, evt.pageY);
+        console.log(dragoverElem)
         if(dragoverElem.getAttribute("id") === "dropArea"){
             this.handleCardDrop(evt)
         }
@@ -97,11 +99,10 @@ class CardSelector extends React.Component {
       }
 
     handleCardPointerMove(evt){
-        evt.preventDefault();
-        evt.stopPropagation()
         let dragoverElem = document.elementFromPoint(evt.pageX - window.pageXOffset, evt.pageY - window.pageYOffset);
         if(dragoverElem.getAttribute("id") === "dropArea"){
-            this.handleDropPointereOver(evt)
+          this.handleDropAreaPointerMove(evt)
+          this.handleDropPointereOver(evt)
         }
         if(this.cardPageX){
           if(Math.abs(this.cardPageX - evt.pageX) > 100){
@@ -146,26 +147,13 @@ class CardSelector extends React.Component {
       }
 
     handleDropPointereOver(evt){
-      console.log("JOJOJO")
         if(this.cardMouseDown){
             this.selectCard(this.cardMouseDown.getAttribute("value"));
         }
     }
 
     selectCard(cardValue){
-        /*
-          This is not good.
-          There should be a method to select how many cards you want to play
-          if there is an option. When there is no option, the amout should be
-          selected automatically.
-        */
-
-
         let all_of_value = document.querySelectorAll(".card[value='"+cardValue+"']");
-        if(this.props.tableValue.length > 0){
-          //all_of_value = [...all_of_value].slice(0,this.props.tableValue.length)
-
-        }
 
         all_of_value = [...all_of_value].slice(0,this.cardAmount)
         for(let card of all_of_value){
