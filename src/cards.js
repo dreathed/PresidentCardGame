@@ -20,8 +20,25 @@ function removeCard(card, cardList){
     return cardList.filter((item) => item[0] !==card[0] || item[1] !== card[1])
 }
 
+function isCard(card){
+    if(!Array.isArray(card)){
+        return false;
+    }
+    if(!cardValues.includes(card[0])){
+        return false;
+    }
+    if(!cardColors.includes(card[1])){
+        return false;
+    }
+    if(!card.length === 2){
+        return false;
+    }
+    return true;
+}
+
 module.exports.cardValues = cardValues
 module.exports.cardColors = cardColors
 module.exports.cardDeck = cardDeck
 module.exports.compareCards = compareCards
 module.exports.removeCard = removeCard
+module.exports.isCard = isCard

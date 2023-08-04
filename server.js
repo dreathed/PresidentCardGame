@@ -6,6 +6,7 @@ const { table } = require("console");
 const { create } = require("domain");
 
 const cardFunctions = require("./src/cards")
+const helpers = require("./src/helpers")
 
 
 let app = express()
@@ -43,26 +44,9 @@ function remove(id){
     }
 }
 
-function choice(array){
-    // helper for random choices, like dealing cards.
-
-    let idx = Math.floor(Math.random() * array.length);
-    try{
-        return array[idx]
-    }catch(e){
-        return null
-    }
-}
 
 
-function removeItem(item, array){
-    // helper: removes an item from an array.
 
-    const idx = array.indexOf(item);
-    if(idx>-1){
-        array.splice(idx, 1);
-    }
-}
 
 
 function getPlayersOnTable(table){
@@ -159,9 +143,9 @@ function dealCards(table){
         console.log("Card num: ", CardNum)
         player.cards = [];
         for(let i=0; i<CardNum; i++){
-            let card = choice(thisCards);
+            let card = helpers.choice(thisCards);
             player.cards.push(card);
-            removeItem(card, thisCards);
+            helpers.removeItem(card, thisCards);
         }
         player.cards.sort(cardFunctions.compareCards)
     }
@@ -169,10 +153,10 @@ function dealCards(table){
     for(let player of players){
         console.log("thisCards.length ", thisCards.length)
         if(thisCards.length > 0){
-            let card = choice(thisCards);
+            let card = helpers.choice(thisCards);
             console.log("This card: ", card)
             player.cards.push(card);
-            removeItem(card, thisCards);
+            helpers.removeItem(card, thisCards);
         }
     }
 }
@@ -185,20 +169,6 @@ function playerHasCard(socket, card){
         console.log(card)
         let newCards = socket.cards.filter((testCard) => card[0] === testCard[0] && card[1]===testCard[1])
         if(newCards.length === 1){
-            return true;
-        }else{
-            return false;
-        }
-    }
-}
-
-
-function StringIsAlphaNumeric(str){
-    if(typeof str !== "string"){
-        return false;
-    }else{
-        let Regex = /^[A-Za-z0-9\s]*$/
-        if(str.match(Regex)){
             return true;
         }else{
             return false;
@@ -367,8 +337,8 @@ function leaveTable(socket){
     }
 
     // remove the socket from all the stuff it was attached to...
-    removeItem(socket.playerName, socket.table.playerNames)
-    removeItem(socket.id, socket.table.players)
+    helpers.removeItem(socket.playerName, socket.table.playerNames)
+    helpers.removeItem(socket.id, socket.table.players)
 
     delete socket.table;
     // delete: so it is sure, that the table property of the socket always has the correct properties, 
@@ -444,22 +414,6 @@ function exchangeCardsVice(cards, table){
     }
 }
 
-function isCard(card){
-    if(!Array.isArray(card)){
-        return false;
-    }
-    if(!cardFunctions.cardValues.includes(card[0])){
-        return false;
-    }
-    if(!cardFunctions.cardColors.includes(card[1])){
-        return false;
-    }
-    if(!card.length === 2){
-        return false;
-    }
-    return true;
-}
-
 
 //wss.on("connection", function(ws){
 app.ws("/api", function(ws, req){  
@@ -486,7 +440,7 @@ app.ws("/api", function(ws, req){
                 if(!msgObj.data.hasOwnProperty("tableName")){
                     return;
                 }
-                if(!StringIsAlphaNumeric(msgObj.data.tableName)){
+                if(!helpers.StringIsAlphaNumeric(msgObj.data.tableName)){
                     ws.send(JSON.stringify({state: {error: "Table name not alphanumeric!"}}))
                     return;
                 }
@@ -518,7 +472,7 @@ app.ws("/api", function(ws, req){
                 if(!msgObj.data.hasOwnProperty("tableName")){
                     return;
                 }
-                if(!StringIsAlphaNumeric(msgObj.data.tableName)){
+                if(!helpers.StringIsAlphaNumeric(msgObj.data.tableName)){
                     ws.send(JSON.stringify({state: {msg: "error", error: "Table name not alphanumeric!"}}))
                     return;
                 }
@@ -568,7 +522,7 @@ app.ws("/api", function(ws, req){
                         return
                     }
                     for(let card of msgObj.data){
-                        if(!isCard(card)){
+                        if(!cardFunctions.isCard(card)){
                             return;
                         }
                     }
@@ -612,7 +566,7 @@ app.ws("/api", function(ws, req){
                         return
                     }
                     for(let card of msgObj.data){
-                        if(!isCard(card)){
+                        if(!cardFunctions.isCard(card)){
                             return;
                         }
                     }
@@ -647,7 +601,7 @@ app.ws("/api", function(ws, req){
 
 
             case("changeName"):
-                if(!StringIsAlphaNumeric(msgObj.data)){
+                if(!helpers.StringIsAlphaNumeric(msgObj.data)){
                     ws.send(JSON.stringify({state: {error: "Player name not alphanumeric!"}}))
                     return;
                 }
