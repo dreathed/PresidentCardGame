@@ -5,6 +5,8 @@ const enableWs = require("express-ws")
 const { table } = require("console");
 const { create } = require("domain");
 
+const cardFunctions = require("./src/cards")
+
 
 let app = express()
 app.use(express.static(path.join(__dirname, 'build')))
@@ -19,25 +21,6 @@ app.get("/", function(req, res){res.sendFile(path.join(__dirname, 'build',"index
 let WebSocketServer = ws.Server
 let wss = new WebSocketServer({port:40510})
 */
-
-let cardValues = ["2","3","4","5","6","7","8","9","10","J","Q","K","A"];
-let cardColors = ["D", "H", "S", "C"];
-let cardDeck = [];
-
-
-for(let value of cardValues){
-    for(let color of cardColors){
-        cardDeck.push([value, color])
-    }
-}
-
-function compareCards(a, b){
-    if(cardValues.indexOf(a[0])!==cardValues.indexOf(b[0])){
-        return cardValues.indexOf(a[0]) - cardValues.indexOf(b[0])
-    }else{
-        return cardColors.indexOf(a[1]) - cardColors.indexOf(b[1])
-    }
-}
 
 
 // just for keeping track of player Ids...
@@ -69,11 +52,6 @@ function choice(array){
     }catch(e){
         return null
     }
-}
-
-
-function removeCard(card, cardList){
-    return cardList.filter((item) => item[0] !==card[0] || item[1] !== card[1])
 }
 
 
@@ -175,7 +153,7 @@ function broadcastNewState(table, msg){
 
 function dealCards(table){
     let players = getPlayersOnTable(table);
-    let thisCards = [...cardDeck]
+    let thisCards = [...cardFunctions.cardDeck]
     let CardNum = Math.floor(thisCards.length / players.length)
     for(let player of players){
         console.log("Card num: ", CardNum)
@@ -185,7 +163,7 @@ function dealCards(table){
             player.cards.push(card);
             removeItem(card, thisCards);
         }
-        player.cards.sort(compareCards)
+        player.cards.sort(cardFunctions.compareCards)
     }
     
     for(let player of players){
@@ -259,7 +237,7 @@ function playCards(socket, cards){
 
     // in case there are already cards on the table:   
     if(table.tableValue){
-        if(cardValues.indexOf(table.tableValue[0][0]) < cardValues.indexOf(cards[0][0]) && table.tableValue.length == cards.length && table.tableValue[0][0] !== "A" && table.lastPlayerWhoPlayedCards !== socket.id){
+        if(cardFunctions.cardValues.indexOf(table.tableValue[0][0]) < cardFunctions.cardValues.indexOf(cards[0][0]) && table.tableValue.length == cards.length && table.tableValue[0][0] !== "A" && table.lastPlayerWhoPlayedCards !== socket.id){
             table.tableValue = cards;
             for(let card of cards){
                 socket.cards = socket.cards.filter((filterCard) => (filterCard[0] !== card[0] || filterCard[1] !== card[1]))
@@ -433,7 +411,7 @@ function exchangeCardsPresident(cards, table){
     let players = getPlayersOnTable(table);
     let president_socket = players.filter((player) => player.id === table.president)[0];
     let trash_socket = players.filter((player) => player.id === table.trash)[0];
-    let sortedCards = trash_socket.cards.sort(compareCards)
+    let sortedCards = trash_socket.cards.sort(cardFunctions.compareCards)
     let bestCard = sortedCards[sortedCards.length-1]
     let secondbestCard = sortedCards[sortedCards.length-2]
     console.log("Exchange: ", president_socket.cards)
@@ -441,10 +419,10 @@ function exchangeCardsPresident(cards, table){
     let filteredForCardOne = president_socket.cards.filter((card) => card[0] === cards[0][0] && card[1] === cards[0][1])
     let filteredForCardTwo = president_socket.cards.filter((card) => card[0] === cards[1][0] && card[1] === cards[1][1])
     if(filteredForCardOne.length == 1 && filteredForCardTwo.length == 1){
-        president_socket.cards = removeCard(cards[0], president_socket.cards);
-        president_socket.cards = removeCard(cards[1], president_socket.cards)
-        trash_socket.cards = removeCard(bestCard, trash_socket.cards)
-        trash_socket.cards = removeCard(secondbestCard, trash_socket.cards)
+        president_socket.cards = cardFunctions.removeCard(cards[0], president_socket.cards);
+        president_socket.cards = cardFunctions.removeCard(cards[1], president_socket.cards)
+        trash_socket.cards = cardFunctions.removeCard(bestCard, trash_socket.cards)
+        trash_socket.cards = cardFunctions.removeCard(secondbestCard, trash_socket.cards)
         trash_socket.cards.push(cards[0])
         trash_socket.cards.push(cards[1])
         president_socket.cards.push(bestCard)
@@ -456,11 +434,11 @@ function exchangeCardsVice(cards, table){
     let players = getPlayersOnTable(table);
     let president_socket = players.filter((player) => player.id === table.vicePresident)[0];
     let trash_socket = players.filter((player) => player.id === table.viceTrash)[0];
-    let sortedCards = trash_socket.cards.sort(compareCards)
+    let sortedCards = trash_socket.cards.sort(cardFunctions.compareCards)
     let bestCard = sortedCards[sortedCards.length-1]
     if(president_socket.cards.includes(cards[0])){
-        removeCard(cards[0], president_socket.cards);
-        removeCard(bestCard, trash_socket.cards)
+        cardFunctions.removeCard(cards[0], president_socket.cards);
+        cardFunctions.removeCard(bestCard, trash_socket.cards)
         trash_socket.cards.push(cards[0])
         president_socket.cards.push(bestCard)
     }
@@ -470,10 +448,10 @@ function isCard(card){
     if(!Array.isArray(card)){
         return false;
     }
-    if(!cardValues.includes(card[0])){
+    if(!cardFunctions.cardValues.includes(card[0])){
         return false;
     }
-    if(!cardColors.includes(card[1])){
+    if(!cardFunctions.cardColors.includes(card[1])){
         return false;
     }
     if(!card.length === 2){
