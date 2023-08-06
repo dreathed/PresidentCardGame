@@ -31,6 +31,7 @@ function getNewplayerId(){
     return Math.min(playerIds.filter((num) => !playerIds.includes(num+1))) + 1;
 }
 
+
 function remove(id){
     //removes the player id from the global array of player ids.
 
@@ -43,10 +44,6 @@ function remove(id){
         console.log("Something went wrong in the removal of an id.");
     }
 }
-
-
-
-
 
 
 function getPlayersOnTable(table){
