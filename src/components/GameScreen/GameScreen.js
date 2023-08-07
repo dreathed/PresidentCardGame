@@ -208,6 +208,17 @@ class ExchangeCardSelector extends CardSelector {
     }
   }
 
+  handleCardPointerDown(evt){
+    //this.cardTimeout = window.setTimeout(this.selectCard, 1000, evt.currentTarget.getAttribute("value"));
+    if(!this.cardPageX){
+      this.cardPageX = evt.pageX;
+    }
+    this.cardMouseDown = evt.currentTarget;
+
+    let dropArea = document.getElementById("dropArea");
+    dropArea.addEventListener("pointermove", this.handleDropAreaPointerMove);
+  }
+
 
   handleDropAreaPointerMove(evt){
 
