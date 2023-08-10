@@ -48,14 +48,14 @@ module.exports = function(wss){
 
             let table = ws.table;
 
+            // its not the players turn...
             if(table.players[table.turn] !== ws.id){
                 return {state: "error", msg:"An error occured..."}
             }
+            
 
-            console.log("THE PLAYER PASSED")
-        
+            // the player passes
             if(!cards.length>0){
-                // the player passes
                 return {state: "passed"};
             }
         
@@ -63,73 +63,37 @@ module.exports = function(wss){
             if(!cards.every((card) => card[0] === cards[0][0])){
                 return {state: "error", msg:"An error occured..."}
             }
+
+            // There should be a check for different colors too (there was a bug about this)
         
-            // all user input not trustworthy...
+            // check if the player has all the cards...
             for(let card of cards){
                 if(!ws.playerHasCard(card)){
                     return {state: "error", msg:"An error occured..."}
                 }
             }
-        
-            // in case there are already cards on the table:   
-            if(table.tableValue){
-                if(cardFunctions.cardValues.indexOf(table.tableValue[0][0]) < cardFunctions.cardValues.indexOf(cards[0][0]) && table.tableValue.length == cards.length && table.tableValue[0][0] !== "A" && table.lastPlayerWhoPlayedCards !== ws.id){
-                    table.tableValue = cards;
-                    for(let card of cards){
-                        ws.cards = ws.cards.filter((filterCard) => (filterCard[0] !== card[0] || filterCard[1] !== card[1]))
-                    }
-                
-                    if(ws.cards.length > 0){
-                        table.lastPlayerWhoPlayedCards = ws.id;
-                    }else{
-                        for(let i=table.players.indexOf(ws.id); i<table.players.length; i++){
-                            if(getPlayerById(table.players[i%table.players.length]).cards.length > 0){
-                                table.lastPlayerWhoPlayedCards = table.players[i%table.players.length];
-                                break;
-                            }
-                        }
-                    }
 
-                    return {state:{cards:ws.cards, table}}
-                }else if(table.tableValue[0][0] === "A" || table.lastPlayerWhoPlayedCards === ws.id){
-                    table.tableValue = cards;
-                    for(let card of cards){
-                        ws.cards = ws.cards.filter((filterCard) => (filterCard[0] !== card[0] || filterCard[1] !== card[1]))
-                    }
-
-                    if(ws.cards.length > 0){
-                        table.lastPlayerWhoPlayedCards = ws.id;
-                    }else{
-                        for(let i=table.players.indexOf(ws.id); i<table.players.length; i++){
-                            if(getPlayerById(table.players[i%table.players.length]).cards.length > 0){
-                                table.lastPlayerWhoPlayedCards = table.players[i%table.players.length];
-                                break;
-                            }
-                        }
-                    }
-                
-                    return {state:{cards:ws.cards, table}}
-                }else{
-                    return {state: "error", msg:"An error occured..."}
-                }
-            }else{
+            // normal card play. No special rule in place.
+            if( (table.hasOwnProperty("tableValue") && table.tableValue === null) || ((cardFunctions.cardValues.indexOf(table.tableValue[0][0]) < cardFunctions.cardValues.indexOf(cards[0][0]) && table.tableValue.length === cards.length) || table.tableValue[0][0] === "A" || table.lastPlayerWhoPlayedCards === ws.id)){
                 table.tableValue = cards;
-                    for(let card of cards){
-                        ws.cards = ws.cards.filter((filterCard) => (filterCard[0] !== card[0] || filterCard[1] !== card[1]))
-                    }
-
-                    if(ws.cards.length > 0){
-                        table.lastPlayerWhoPlayedCards = ws.id;
-                    }else{
-                        for(let i=table.players.indexOf(ws.id); i<table.players.length; i++){
-                            if(getPlayerById(table.players[i%table.players.length]).cards.length > 0){
-                                table.lastPlayerWhoPlayedCards = table.players[i%table.players.length];
-                                break;
-                            }
+                for(let card of cards){
+                    ws.cards = ws.cards.filter((filterCard) => (filterCard[0] !== card[0] || filterCard[1] !== card[1]))
+                }
+                
+                if(ws.cards.length > 0){
+                    table.lastPlayerWhoPlayedCards = ws.id;
+                }else{
+                    for(let i=table.players.indexOf(ws.id); i<table.players.length; i++){
+                        if(getPlayerById(table.players[i%table.players.length]).cards.length > 0){
+                            table.lastPlayerWhoPlayedCards = table.players[i%table.players.length];
+                            break;
                         }
                     }
-                
-                    return {state:{cards:ws.cards, table}}
+                }
+                return {state:{cards:ws.cards, table}}
+            }else{
+                console.log("There was an error!")
+                return {state: "error", msg:"An error occured..."}
             }
         }
 
