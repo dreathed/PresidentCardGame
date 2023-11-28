@@ -1,14 +1,12 @@
 import React from 'react';
 import './App.css';
 
-import unmountComponentAtNode from 'react-dom';
 import OpeningScreen from './components/OpeneningScreen'
 import CreateTableScreen from './components/CreateTableScreen'
 import JoinTableScreen from './components/JoinTableScreen'
 import GameScreen from './components/GameScreen/GameScreen'
 import WaitingScreen from './components/WaitingScreen'
 import InstructionsScreen from './components/InstructionsScreen';
-
 
 
 class App extends React.Component {
@@ -54,7 +52,7 @@ class App extends React.Component {
   }
 
   sendCards(cards){
-    this.ws.send(JSON.stringify({command: "sendCards", data: cards}))
+    this.ws.send(JSON.stringify({command: "SEND", data: cards}))
   }
 
   setTableValue(value){
@@ -74,8 +72,13 @@ class App extends React.Component {
     let component = this;
     this.ws.onmessage = function(msg){
       console.log("Received a message from the server: "+msg.data)
-
-      let msgObj = JSON.parse(msg.data);
+      let msgObj;
+      try{
+        msgObj = JSON.parse(msg.data);
+      }catch(e){
+        console.log("Error in data: ", msg.data)
+        throw e;
+      }
 
       switch(msgObj.state.msg){
         case("Created Table"):
@@ -100,7 +103,7 @@ class App extends React.Component {
           console.log("No action taken.")
       }
     }
-  }
+  } 
 
 
   render() {

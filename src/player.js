@@ -73,7 +73,6 @@ module.exports = function(wss){
                 }
             }
 
-            // normal card play. No special rule in place.
             if( (table.hasOwnProperty("tableValue") && table.tableValue === null) || ((cardFunctions.cardValues.indexOf(table.tableValue[0][0]) < cardFunctions.cardValues.indexOf(cards[0][0]) && table.tableValue.length === cards.length) || table.tableValue[0][0] === "A" || table.lastPlayerWhoPlayedCards === ws.id)){
                 table.tableValue = cards;
                 for(let card of cards){

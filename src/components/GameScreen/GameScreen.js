@@ -53,7 +53,6 @@ class CardSelector extends React.Component {
         dropArea.addEventListener("pointerover", this.handleDropPointereOver);
         dropArea.addEventListener("pointerup", this.handleCardDrop);
 
-        
     }
 
     componentDidUpdate(){
@@ -113,9 +112,8 @@ class CardSelector extends React.Component {
       }
 
     handleDropAreaPointerMove(evt){
-      
       if(this.props.tableValue.length === 0 ||
-        this.props.table.lastPlayerWhoPlayedCards === this.props.table.id){
+          this.props.table.AllEligiblePlayersPassed){
         let width = document.body.clientWidth / 8
         let amount = document.querySelectorAll(".card[value='"+this.cardMouseDown.getAttribute("value")+"']").length;
         if(this.cardMouseDown){
@@ -160,7 +158,7 @@ class CardSelector extends React.Component {
         for(let card of all_of_value){
           card.classList.add("selected");
         }
-
+        
         this.props.setSelectedCards(all_of_value);
       }
 
