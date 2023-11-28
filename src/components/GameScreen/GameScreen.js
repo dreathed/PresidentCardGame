@@ -1,6 +1,7 @@
 import React from 'react';
 import TableView from './TableView'
 import CardFan from './CardFan'
+import TurnIndicator from './TurnIndicator';
 
 
 class PassBtn extends React.Component {
@@ -52,7 +53,6 @@ class CardSelector extends React.Component {
         let dropArea = document.getElementById("dropArea");
         dropArea.addEventListener("pointerover", this.handleDropPointereOver);
         dropArea.addEventListener("pointerup", this.handleCardDrop);
-
     }
 
     componentDidUpdate(){
@@ -207,7 +207,6 @@ class ExchangeCardSelector extends CardSelector {
   }
 
   handleCardPointerDown(evt){
-    //this.cardTimeout = window.setTimeout(this.selectCard, 1000, evt.currentTarget.getAttribute("value"));
     if(!this.cardPageX){
       this.cardPageX = evt.pageX;
     }
@@ -216,15 +215,6 @@ class ExchangeCardSelector extends CardSelector {
     let dropArea = document.getElementById("dropArea");
     dropArea.addEventListener("pointermove", this.handleDropAreaPointerMove);
   }
-
-
-  handleDropAreaPointerMove(evt){
-
-  }
-
-  handleDropPointereOver(evt){
-    //pass
-}
 
   handleCardPointerUp(evt){
     console.log(evt)
@@ -288,13 +278,6 @@ class GameScreen extends React.Component {
       let newCards = [...cards].map(card => [card.getAttribute("value"), card.getAttribute("color")])
       this.props.playCards(newCards)
     }
-
-  
-    componentDidMount(){
-    }
-
-    componentDidUpdate(){
-    }
     
     render(){
 
@@ -340,6 +323,7 @@ class GameScreen extends React.Component {
       return (
         <div id="GameScreen">
           <header>{TurnInfo}</header>
+          <TurnIndicator playerNames={this.props.table.playerNames} turn={this.props.table.turn}></TurnIndicator>
           {ExchangeInfo}
           {MyTableView}
           {MyCardFan}

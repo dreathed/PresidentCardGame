@@ -278,6 +278,15 @@
     animation: 1s ease 0s 1 "get-bigger", 0.4s ease-in-out 1s infinite alternate "twist";
 }
 
+#TurnIndicator {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+#TurnIndicator .namePlate{
+    transform: translateX(-50%);
+}
+
 
 
 
