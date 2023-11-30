@@ -1,0 +1,8 @@
+{
+    "include": [
+        "src/CardGames/Cards",
+        "src/CardGames/Actions",
+        "src/CardGames/Players",
+        "src/CardGames"
+    ]
+}

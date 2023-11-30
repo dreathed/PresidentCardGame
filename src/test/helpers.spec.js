@@ -1,7 +1,7 @@
 const chai = require("chai")
 const assert = chai.assert
 
-const helpers = require("../src/helpers")
+const helpers = require("../helpers")
 
 describe("helpers", function(){
     describe("choice", function(){

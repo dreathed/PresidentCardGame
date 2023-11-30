@@ -26,11 +26,7 @@ class OpeningScreen extends React.Component {
       }else{
         this.props.setPlayerName(this.testForPlayerName())
   
-        //for tests only:
         this.props.screenChange(1)
-  
-        //this is the real line:
-        //this.props.screenChange(1)
       }
     }
   
@@ -82,7 +78,7 @@ class OpeningScreen extends React.Component {
         </div>
         <nav className='button-container'>
           <button id="btn_create" onClick={this.createTable}>CREATE TABLE</button>
-          <button if="btn_join" onClick={this.joinTable}>JOIN TABLE</button>
+          <button id="btn_join" onClick={this.joinTable}>JOIN TABLE</button>
         </nav>
       </div>
       )
